@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>-->
+    <title>首页</title>
+    <meta http-equiv="Content-type" name="viewport"
+          content="initial-scale=1.0, width=device-width">
+</head>
+<body>
+<center>
+    <h3 style="margin: 30px 30px 10px">全唐诗:</h3>
+    <form action="/tang" method="post">
+        <input style="margin-left: 30px;width: auto;border-radius: 5px;height: 20px" type="text" name="name"
+               placeholder="输入诗名或诗人或诗句">
+        <input type="submit" style="height: 30px" value="确定">
+    </form>
+</center>
+<strong><p style="margin-left: 30px">tips:1.以诗人名字查询注意格式,如:李白诗人。以诗人两字结尾，和唐诗名相区别</p>
+    <p style="margin-left: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.输入框输入“统计”两字可以查看全唐诗统计</p></strong>
+
+
+<hr/>
+<p style="margin: 10px 30px" th:text="${intro}" th:each="intro:${intros}"></p>
+<em><p style="margin: 10px 30px" th:text="${error}"></p></em>
+<p style="margin: 10px 30px" th:text="${num}"></p>
+<center>
+    <h4 style="margin: 8px 30px" th:text="${student}" th:each="student:${poetries}"></h4>
+</center>
+<hr/>
+<center>
+    <a href="/login.html" style="font-size: 18px">点击查看日志</a>
+</center>
+</body>
+</html>

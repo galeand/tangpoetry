@@ -1,0 +1,51 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.sse'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    runtimeOnly 'mysql:mysql-connector-java'
+}
+//清除上次的编译过的文件
+task clearPj(type: Delete) {
+
+    delete 'build', 'target'
+
+}
+
+task copyJar(type: Copy) {
+
+    from configurations.runtime
+
+    into('build/libs/lib')
+
+}
+
+//把JAR复制到目标目录
+
+task release(type: Copy, dependsOn: [build, copyJar]) {
+
+// from 'conf'
+
+// into ('build/libs/eachend/conf') // 目标位置
+
+} 
+
+
+
