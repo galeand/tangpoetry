@@ -19,9 +19,6 @@ public class PeotryServiceImpl implements PoetryService {
     @Autowired
     PoetryMapper poetryMapper;
 
-    public PoetryService() {
-    }
-
     public List<Object> getPoetryByPoet(String poetName) {
         Poet poet = this.poetMapper.getPoetByName(poetName);
         System.out.println(poet);
