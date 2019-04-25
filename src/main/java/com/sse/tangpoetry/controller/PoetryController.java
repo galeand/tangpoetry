@@ -24,7 +24,7 @@ public class PoetryController {
     public String tangPoetry(@RequestParam("name") String name,
                              Map<String, Object> map) {
         System.out.println("输入的关键字：" + name);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a E");
         String time = df.format(new Date());
         logsList.add("关键字：" + name + "\t\t;时间：" + time);
 
