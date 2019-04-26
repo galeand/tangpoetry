@@ -139,7 +139,9 @@ public class PeotryServiceImpl implements PoetryService {
 
         if (divide.contains(subcontent)) {
             i = divide.indexOf(subcontent);
-            result = subcontent + "," + (String) divide.get(i + 1);
+            if (i < divide.size() - 1) {
+                    result = subcontent + "," + (String) divide.get(i + 1);
+                }
         }
 
         return result;
