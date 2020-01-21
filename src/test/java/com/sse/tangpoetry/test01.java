@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.function.Function;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -31,6 +32,7 @@ public class test01 {
 //        System.out.println("查询到：" + list.size() + "条数据。");
 //        for (Poetry poetry : list) {
 //            System.out.println(poetry);
+//        Function
     }
 
 

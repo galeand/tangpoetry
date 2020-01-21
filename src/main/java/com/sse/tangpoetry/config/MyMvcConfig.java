@@ -33,9 +33,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         List<String> list = new ArrayList<>();
         list.add("hello");
         list.add("world");
-        list.forEach(val -> {
-            System.out.println(val);
-        });
+        list.forEach(System.out::println);
     }
 
 //    @Bean

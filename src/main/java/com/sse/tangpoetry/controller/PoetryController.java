@@ -1,5 +1,6 @@
 package com.sse.tangpoetry.controller;
 
+import com.sse.tangpoetry.constant.BaseConstant;
 import com.sse.tangpoetry.service.PoetryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-public class PoetryController {
+public class PoetryController implements BaseController{
     @Autowired
     private PoetryService poetryService;
 
@@ -32,17 +33,7 @@ public class PoetryController {
         }
         switch (name) {
             case "统计": {
-                List<String> intro = new ArrayList<>();
-                intro.add(" 古诗是中华民族乃至全世界的瑰宝, 我们应该传承下去,此数据库共收录全唐诗共计43030首," +
-                        "其中收集唐朝诗人写诗最多的人如下：白居易、杜甫、李白、佚名、齐己、刘禹锡、元稹、李商隐、贯休、韦应物");
-                intro.add("《全唐诗》是清康熙四十四年（1705年），彭定求、沈三曾、杨中讷、汪士鋐、汪绎、俞梅、徐树本、车鼎晋、" +
-                        "潘从律、查嗣瑮10人奉敕编校，“得诗四万八千九百余首，凡二千二百余人”,共计900卷，目录12卷。");
-                intro.add("全唐诗的编修过程是这样的：康熙四十二年(1703年)，清圣祖玄烨即考虑编纂此书，至四十四年(1705年)三月，" +
-                        "他第五次南巡至苏州时，将主持修书的任务交给江宁织造曹寅，并将内府所藏季振宜《唐诗》一部发下，" +
-                        "作为校刊底本。同年五月，由曹寅主持，在扬州开局修书，参加校刊编修的有赋闲江南的在籍翰林官彭定求、" +
-                        "沈三曾、杨中讷、潘从律、汪士綋，徐树本、车鼎晋，汪绎、查嗣瑮、俞梅等十人。至次年十月，全书即编成奏上。" +
-                        "得诗四万八千九百余首，凡二千二百余人”， 共计900卷，目录12卷。(来自百科)");
-                map.put("intros", intro);
+                map.put("intros", BaseConstant.TANGPOETRY_INTRO);
                 break;
             }
             case "空": {
@@ -50,6 +41,7 @@ public class PoetryController {
                 break;
             }
             default: {
+
                 //判定输入的应该是诗人的名字
                 if (name.endsWith("诗人")) {
                     String name2 = name.substring(0, name.length() - 2);
