@@ -16,5 +16,8 @@ public class BaseConstant {
             "沈三曾、杨中讷、潘从律、汪士綋，徐树本、车鼎晋，汪绎、查嗣瑮、俞梅等十人。至次年十月，全书即编成奏上。" +
             "得诗四万八千九百余首，凡二千二百余人”， 共计900卷，目录12卷。(来自百科)";
 
+    public static final Integer TANG_POETRY = 1;
+
+    public static final Integer SONG_CI = 2;
 
 }

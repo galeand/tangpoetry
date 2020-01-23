@@ -2,10 +2,7 @@ package com.sse.tangpoetry.mapper;
 
 import com.sse.tangpoetry.bean.Poet;
 import com.sse.tangpoetry.bean.TestX;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface TestXMappper {
@@ -16,6 +13,7 @@ public interface TestXMappper {
             @Result(column = "updated_at", property = "x4")})
     TestX getPoetByName(String name);
 
+    @ResultMap(value = "poetMap")
     @Select("select * from poets where id=#{poet_id}")
     TestX getPoetByPoet_id(Integer poet_id);
 }
