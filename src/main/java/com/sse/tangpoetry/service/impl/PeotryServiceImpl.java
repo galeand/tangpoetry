@@ -26,7 +26,6 @@ public class PeotryServiceImpl implements PoetryService {
 
     public List<Object> getPoetryByPoet(String poetName) {
         Poet poet = this.poetMapper.getPoetByName(poetName);
-        System.out.println(poet);
         List<Object> result = new ArrayList();
         if (poet != null) {
             Integer poet_id = poet.getId();

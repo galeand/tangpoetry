@@ -1,39 +1,49 @@
 package com.sse.tangpoetry.controller;
 
-import com.sse.tangpoetry.bean.Poet;
-import com.sse.tangpoetry.bean.Poetry;
-import com.sse.tangpoetry.bean.SongCiDto;
-import com.sse.tangpoetry.bean.SongCiEveryDto;
+import com.sse.tangpoetry.bean.*;
 import com.sse.tangpoetry.constant.BaseConstant;
+import com.sse.tangpoetry.enums.PoetryTypeEnum;
 import com.sse.tangpoetry.enums.QueryTypeEnum;
+import com.sse.tangpoetry.service.IpRecordService;
 import com.sse.tangpoetry.service.PoetryService;
 import com.sse.tangpoetry.service.SongCiService;
+import com.sse.tangpoetry.util.IpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
 public class PoetryController implements BaseController{
+    private static final Logger logger = LoggerFactory.getLogger("PoetryController.class");
     @Autowired
     private PoetryService poetryService;
     @Autowired
     private SongCiService songCiService;
-
-    private static List<String> logsList = new ArrayList<>(100);
+    @Autowired
+    private IpRecordService ipRecordService;
 
     @RequestMapping("/tang")
     public String tangPoetry(@RequestParam("name") String name,
                              @RequestParam("select") Integer select,
+                             HttpServletRequest request,
                              Map<String, Object> map) {
-        System.out.println("输入的关键字：" + name);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = df.format(new Date());
-        logsList.add("关键字：" + name + "\t\t;时间：" + time);
+        logger.info("输入的关键字：" + name);
+        if (name.trim().equals("") || name.trim().length() <= 0) {
+            map.put("intros", Collections.singletonList("输入不能为空或者空格"));
+            return "index";
+        }
+        PoetryTypeEnum type = PoetryTypeEnum.typeOf(select);
+        IpRecord record = new IpRecord(name, request, type);
+        //记录访问ip信息
+        ipRecordService.ipRecordHandler(record);
         //判断是否查询宋词
-        if (select.equals(BaseConstant.SONG_CI)) {
+        if (select.equals(PoetryTypeEnum.SONG_CI.getCode())) {
             Map<String, Object> retMap = handSONGCI(name);
             if (Objects.nonNull(retMap)){
                 map.putAll(retMap);
@@ -45,23 +55,16 @@ public class PoetryController implements BaseController{
             if (name.startsWith("“") && name.endsWith("”") || name.startsWith("\"") && name.endsWith("\"")) {
                 name = name.substring(1, 3);//针对“统计”这个关键字进行相关处理；
             }
-            if (name.equals("") || name.length() <= 0) {
-                name = "空";
-            }
+
             switch (name) {
                 case "统计": {
                     map.put("intros", BaseConstant.TANGPOETRY_INTRO);
-                    break;
-                }
-                case "空": {
-                    map.put("intros", Collections.singletonList("输入不能为空或者空格"));
                     break;
                 }
                 default: {
                     //判定输入的应该是诗人的名字
                     if (name.endsWith("诗人")) {
                         String name2 = name.substring(0, name.length() - 2);
-                        System.out.println(name2);
                         List<Object> listByPoet = poetryService.getPoetryByPoet(name2);
                         if (listByPoet.size() <= 0) {
                             map.put("error", "Maybe this poet was not from the Tang Dynasty.Please re-enter");
@@ -106,7 +109,8 @@ public class PoetryController implements BaseController{
                         @RequestParam("pwd") String pwd,
                         Map<String, Object> logsMap) {
         if (user.equals("admin") && pwd.equals("12345")) {
-            logsMap.put("logs", logsList);
+            List<String> list = ipRecordService.getAll();
+            logsMap.put("logs", list);
             return "main";
         }
         return "login";
@@ -127,6 +131,9 @@ public class PoetryController implements BaseController{
             Map<String, Object> map = new HashMap<>();
             map.put("intros", BaseConstant.SONGCI_INTRO);
             return map;
+        }
+        if (key.endsWith("诗人") || key.endsWith("词人") || key.endsWith("作者")){
+            key = key.substring(0, key.length()-2);
         }
         //先按照词人名查找一次，然后再按照标题或者词句查找一次，最后组装结果
         SongCiDto retDto = songCiService.songCiHandler(key);

@@ -22,4 +22,5 @@ public class BaseConstant {
 
     public static final Integer SONG_CI = 2;
 
+    public static final String BASE_IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
 }

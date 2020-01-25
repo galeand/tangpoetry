@@ -27,15 +27,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
         };
     }
 
-    //这里对比看一下几种lambda表达式的写法
-
-    public void test01() {
-        List<String> list = new ArrayList<>();
-        list.add("hello");
-        list.add("world");
-        list.forEach(System.out::println);
-    }
-
 //    @Bean
 //    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> myWebServerFactory() {
 //        return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>((ConfigurableWebServerFactory factory) -> {
