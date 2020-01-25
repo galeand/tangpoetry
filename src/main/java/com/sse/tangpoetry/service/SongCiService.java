@@ -55,8 +55,10 @@ public class SongCiService {
                 songCiDto.setSongCiList(list);
                 String authorName = songCiByTitleList.get(0).getAuthor();
                 SongCiAuthor author1 = songCiAuthorMapper.getSongCiAuthorByName(authorName);
-                songCiDto.setAuthor(authorName);
-                songCiDto.setIntro(author1.getDescription());
+                if (Objects.nonNull(author1)) {
+                    songCiDto.setAuthor(authorName);
+                    songCiDto.setIntro(author1.getDescription());
+                }
                 songCiDto.setType(QueryTypeEnum.TITLE);
                 return songCiDto;
             }

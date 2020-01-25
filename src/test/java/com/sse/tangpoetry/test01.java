@@ -124,7 +124,7 @@ public class test01 {
 //        SongCiAuthor val = songCiAuthorMapper.getSongCiAuthorByName("苏轼");
 //        logger.info(val.toString());
 
-        SongCiDto ret = songCiService.songCiHandler("苏轼");
+        SongCiDto ret = songCiService.songCiHandler("统计");
 
         System.out.println(ret);
 

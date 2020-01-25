@@ -123,6 +123,11 @@ public class PoetryController implements BaseController{
 
     private Map<String, Object> handSONGCI(String name){
         String key = name.trim();//去掉首位空格
+        if (key.equals("统计")){
+            Map<String, Object> map = new HashMap<>();
+            map.put("intros", BaseConstant.SONGCI_INTRO);
+            return map;
+        }
         //先按照词人名查找一次，然后再按照标题或者词句查找一次，最后组装结果
         SongCiDto retDto = songCiService.songCiHandler(key);
         if (Objects.nonNull(retDto)){

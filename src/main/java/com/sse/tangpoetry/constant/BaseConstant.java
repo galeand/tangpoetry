@@ -16,6 +16,8 @@ public class BaseConstant {
             "沈三曾、杨中讷、潘从律、汪士綋，徐树本、车鼎晋，汪绎、查嗣瑮、俞梅等十人。至次年十月，全书即编成奏上。" +
             "得诗四万八千九百余首，凡二千二百余人”， 共计900卷，目录12卷。(来自百科)";
 
+    public static final String SONGCI_INTRO = "《全宋词》是中国近百年来最重要的古籍整理成果之一。宋词和唐诗均为中国古典诗的艺术高峰。清代所编《全唐诗》是家喻户晓籍，现又新编出《全宋词》，堪称中国文学的双璧。全书共五册，荟萃宋代三百年间的词作。 来自百科。宋词著名词人苏轼、辛弃疾、柳永、王安石、曾巩、欧阳询";
+
     public static final Integer TANG_POETRY = 1;
 
     public static final Integer SONG_CI = 2;
